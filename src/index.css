@@ -4,4 +4,10 @@
   --color-primaria: #111827;
   --color-segundaria: #22c55e;
   --color-terciaria: #06b6d4;
+  --color-destaque: #facc15;  
+}
+
+:focus-visible {
+outline: 3px solid var(--color-destaque);
+outline-offset: 3px;
 }
