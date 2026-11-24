@@ -1,10 +1,12 @@
 import Atracoes from "./components/Atracoes";
+import BotaoLembrete from "./components/BotaoLembrete";
 import Programacao from "./components/Programacao";
 import Sobre from "./components/Sobre";
 import Cabecalho from "./components/Cabecalho";
 import Hero from "./components/Hero";
 import Inscricao from "./components/Inscricao";
 import Rodape from "./components/Rodape";
+import Grafico from "./components/Grafico";
 
 function App() {
   return (
@@ -17,12 +19,13 @@ function App() {
       </a>
 
       <Cabecalho />
-
       <main id="conteudo-principal">
         <Hero />
+        <BotaoLembrete />
         <Sobre />
         <Programacao />
         <Atracoes />
+        <Grafico />
         <Inscricao />
       </main>
 
