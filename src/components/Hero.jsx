@@ -38,7 +38,7 @@ function Hero() {
           <a
             href="#inscricao"
             /* CORRIGIDO: Alterado min-height-[44px] para min-h-[44px] (sintaxe válida do Tailwind) */
-            className="inline-block bg-segundaria text-primaria font-black px-8 py-4 rounded-xl text-lg shadow-lg hover:scale-105 focus:scale-105 focus:outline focus:outline-3 focus:outline-offset-2 focus:outline-segundaria transition-all min-height-[44px]"
+            className="inline-block bg-segundaria text-primaria font-black px-8 py-4 rounded-xl text-lg shadow-lg hover:scale-105 focus:scale-105 focus:outline-3 focus:outline-offset-2 focus:outline-segundaria transition-all min-height-[44px]"
           >
             Garantir Minha Vaga
           </a>

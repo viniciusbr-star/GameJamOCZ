@@ -36,7 +36,7 @@ function BotaoLembrete() {
       <button
         type="button"
         onClick={ativarLembrete}
-        className="inline-flex items-center gap-2 border-2 border-segundaria text-segundaria font-bold px-6 py-3 rounded-xl min-height-[44px] hover:bg-segundaria hover:text-primaria focus:outline focus:outline-2 focus:outline-offset-2 focus:outline-segundaria transition-colors"
+        className="inline-flex items-center gap-2 border-2 border-segundaria text-segundaria font-bold px-6 py-3 rounded-xl min-height-[44px] hover:bg-segundaria hover:text-primaria focus:outline-2 focus:outline-offset-2 focus:outline-segundaria transition-colors"
       >
         <span aria-hidden="true">🔔</span> Me lembre do evento
       </button>
