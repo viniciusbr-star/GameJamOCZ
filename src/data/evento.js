@@ -4,12 +4,33 @@ export const evento = {
   data: "6 a 8 de agosto de 2027",
   horario: "de sexta, 19h, a domingo, 19h",
   local: "Espaço Maker Municipal",
+  cidade: "Osvaldo Cruz/SP",
+  inicio: "2027-08-06T19:00:00-03:00",
 };
 
+export const links = [
+  { href: "#sobre", rotulo: "Sobre" },
+  { href: "#programacao", rotulo: "Programação" },
+  { href: "#mentores", rotulo: "Mentores" },
+];
+
 export const destaques = [
-  { valor: "48 horas", rotulo: "Maratona intensa" },
-  { valor: "30 equipes", rotulo: "Criando do zero" },
-  { valor: "8 mentores", rotulo: "Especialistas ativos" },
+  { valor: "48 horas", rotulo: "de maratona, sem interrupção" },
+  { valor: "30 equipes", rotulo: "criando jogos do zero" },
+  { valor: "8 mentores", rotulo: "disponíveis durante o evento" },
+];
+
+export const requisitos = [
+  "Equipes de 1 a 4 pessoas",
+  "Jogo criado do zero durante o evento",
+  "Tema revelado na abertura, na sexta",
+  "Publicação obrigatória no domingo, às 17h",
+];
+
+export const dias = [
+  { chave: "Sex", nome: "Sexta-feira", data: "6 de agosto" },
+  { chave: "Sáb", nome: "Sábado", data: "7 de agosto" },
+  { chave: "Dom", nome: "Domingo", data: "8 de agosto" },
 ];
 
 export const programacao = [

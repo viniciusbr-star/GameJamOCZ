@@ -1,27 +1,26 @@
 import Atracoes from "./components/Atracoes";
-import BotaoLembrete from "./components/BotaoLembrete";
-import Programacao from "./components/Programacao";
-import Sobre from "./components/Sobre";
 import Cabecalho from "./components/Cabecalho";
+import Grafico from "./components/Grafico";
 import Hero from "./components/Hero";
 import Inscricao from "./components/Inscricao";
+import Programacao from "./components/Programacao";
 import Rodape from "./components/Rodape";
-import Grafico from "./components/Grafico";
+import Sobre from "./components/Sobre";
 
 function App() {
   return (
     <>
+      {/* Skip link acessibilidade */}
       <a
         href="#conteudo-principal"
-        className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:bg-white focus:text-black p-3 z-50 rounded shadow border border-gray-300"
+        className="btn btn-brasa sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-3 focus:z-50"
       >
-        Pular para o Conteúdo
+        Pular para o conteúdo
       </a>
 
       <Cabecalho />
       <main id="conteudo-principal">
         <Hero />
-        <BotaoLembrete />
         <Sobre />
         <Programacao />
         <Atracoes />

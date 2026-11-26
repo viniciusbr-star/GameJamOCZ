@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { ingressos } from "../data/evento";
+import Cracha from "./Cracha";
 
 function Inscricao() {
   const [nome, setNome] = useState("");
@@ -13,66 +14,49 @@ function Inscricao() {
   }
 
   return (
-    <section
-      id="inscricao"
-      className="bg-primaria py-24 px-4 text-white border-b border-gray-800"
-    >
-      <div className="max-w-md mx-auto bg-gray-900/60 border border-gray-800 p-8 rounded-2xl shadow-2xl">
-        {enviado ? (
-          /* MENSAGEM DE CONFIRMAÇÃO (Exibida após o envio bem-sucedido) */
-          <div role="status" className="text-center py-6">
-            <span className="text-5xl block mb-4" aria-hidden="true">
-              🚀
-            </span>
-            <h2 className="text-2xl font-bold text-segundaria mb-3">
-              Inscrição Confirmada!
-            </h2>
-            <p className="text-gray-200 leading-relaxed">
-              Prepare o seu computador,{" "}
-              <span className="text-white font-bold underline">{nome}</span>! O
-              passaporte para a modalidade{" "}
-              <span className="text-terciaria font-bold">
-                {ingressoEscolhido}
-              </span>{" "}
-              foi enviado para o seu e-mail.
-            </p>
-          </div>
-        ) : (
-          <>
-            <h2 className="text-2xl font-bold mb-2 text-center">
-              Faça sua Inscrição
-            </h2>
-            {/* Contraste corrigido de text-gray-400 para text-gray-300 */}
-            <p className="text-sm text-gray-300 text-center mb-8">
-              Vagas limitadas para criadores e entusiastas.
-            </p>
+    <section id="inscricao" className="border-t border-linha py-24 sm:py-32">
+      <div className="container-pagina grid items-start gap-12 lg:grid-cols-2 lg:gap-20">
+        <div>
+          <h2 className="titulo-secao">Entre no jogo</h2>
+          <p className="mt-4 mb-10 max-w-md text-lg">
+            Preencha a inscrição e veja seu crachá tomar forma. As vagas são limitadas.
+          </p>
+          <Cracha nome={nome} ingresso={ingressoEscolhido} confirmado={enviado} />
+        </div>
 
+        <div className="rounded-3xl border border-linha bg-carvao p-6 sm:p-10">
+          {enviado ? (
+            <div role="status" className="py-8">
+              <h3 className="text-2xl font-bold">Inscrição confirmada!</h3>
+              <p className="mt-5 text-lg">
+                Prepare o seu computador, <strong className="text-claro">{nome}</strong>!
+                Modalidade escolhida:{" "}
+                <strong className="text-claro">{ingressoEscolhido}</strong>. E-mail de contato:{" "}
+                <strong className="break-all text-claro">{email}</strong>.
+              </p>
+              <p className="mt-5 text-menta">Nos vemos em agosto de 2027.</p>
+            </div>
+          ) : (
             <form onSubmit={lidarComEnvio} className="space-y-6">
               <div className="flex flex-col gap-2">
-                <label
-                  htmlFor="input-nome"
-                  className="text-sm font-semibold text-gray-200"
-                >
-                  Nome Completo
+                <label htmlFor="input-nome" className="text-sm font-bold text-claro">
+                  Nome completo
                 </label>
                 <input
                   id="input-nome"
                   type="text"
                   required
+                  autoComplete="name"
+                  maxLength={60}
                   value={nome}
                   onChange={(e) => setNome(e.target.value)}
-                  placeholder="Digite seu nome"
-                  /* Adicionado placeholder-gray-400 para contraste e melhorias de foco por teclado */
-                  className="w-full bg-gray-950 border border-gray-800 rounded-xl px-4 py-3 text-white placeholder-gray-400  focus:outline-segundaria transition-all"
+                  className="campo"
                 />
               </div>
 
               <div className="flex flex-col gap-2">
-                <label
-                  htmlFor="input-email"
-                  className="text-sm font-semibold text-gray-200"
-                >
-                  E-mail para contato
+                <label htmlFor="input-email" className="text-sm font-bold text-claro">
+                  E-mail
                 </label>
                 <input
                   id="input-email"
@@ -82,46 +66,38 @@ function Inscricao() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="seuemail@exemplo.com"
-                  className="w-full bg-gray-950 border border-gray-800 rounded-xl px-4 py-3 text-white placeholder-gray-400  focus:outline-segundaria transition-all"
+                  className="campo"
                 />
               </div>
 
-              <div className="flex flex-col gap-2">
-                <label
-                  htmlFor="select-ingresso"
-                  className="text-sm font-semibold text-gray-200"
-                >
-                  Tipo de Ingresso
-                </label>
-                <select
-                  id="select-ingresso"
-                  value={ingressoEscolhido}
-                  /* CORRIGIDO: Espaço removido na chamada da função */
-                  onChange={(e) => setIngressoEscolhido(e.target.value)}
-                  className="w-full bg-gray-950 border border-gray-800 rounded-xl px-4 py-3 text-white  focus:outline-segundaria transition-all"
-                >
+              <fieldset>
+                <legend className="mb-2 text-sm font-bold text-claro">Tipo de ingresso</legend>
+                <div className="space-y-2">
                   {ingressos.map((opcao) => (
-                    <option
+                    <label
                       key={opcao}
-                      value={opcao}
-                      className="bg-gray-950 text-white"
+                      className="flex cursor-pointer items-center gap-3 rounded-xl border border-linha bg-noite p-4 text-claro has-checked:border-brasa has-checked:bg-brasa/10"
                     >
+                      <input
+                        type="radio"
+                        name="ingresso"
+                        value={opcao}
+                        checked={ingressoEscolhido === opcao}
+                        onChange={(e) => setIngressoEscolhido(e.target.value)}
+                        className="h-4 w-4 accent-brasa"
+                      />
                       {opcao}
-                    </option>
+                    </label>
                   ))}
-                </select>
-              </div>
+                </div>
+              </fieldset>
 
-              <button
-                type="submit"
-                /* CORRIGIDO: Modificado min-height-[44px] (sintaxe inválida) para min-h-[44px] e adicionado focus:scale-[1.01] */
-                className="w-full bg-segundaria text-primaria font-black py-3 px-4 rounded-xl hover:opacity-90 focus:scale-[1.01] focus:outline-offset-2 focus:outline-segundaria transition-all min-height-[44px] cursor-pointer"
-              >
-                Concluir Inscrição
+              <button type="submit" className="btn btn-brasa w-full">
+                Concluir inscrição
               </button>
             </form>
-          </>
-        )}
+          )}
+        </div>
       </div>
     </section>
   );

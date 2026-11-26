@@ -1,13 +1,188 @@
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Unbounded:wght@500;700;800&display=swap");
 @import "tailwindcss";
 
+/* ─── DESIGN TOKENS ─────────────────────────────────────────────── */
 @theme {
-  --color-primaria: #111827;
-  --color-segundaria: #22c55e;
-  --color-terciaria: #06b6d4;
-  --color-destaque: #facc15;  
+  --color-noite: #07070b;
+  --color-carvao: #101018;
+  --color-linha: #262633;
+  --color-campo: #6b6b80;
+  --color-claro: #f4f3ef;
+  --color-nevoa: #adadbd;
+  --color-brasa: #ff6a3d;
+  --color-pulso: #8ea2ff;
+  --color-menta: #4fe0c1;
+
+  --font-sans: "Manrope", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Unbounded", "Manrope", sans-serif;
 }
 
-:focus-visible {
-outline: 3px solid var(--color-destaque);
-outline-offset: 3px;
+/* ─── BASE ──────────────────────────────────────────────────────── */
+@layer base {
+  html {
+    color-scheme: dark;
+    -webkit-font-smoothing: antialiased;
+    scroll-padding-top: 6rem;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    html { scroll-behavior: smooth; }
+  }
+
+  body {
+    background: var(--color-noite);
+    color: var(--color-nevoa);
+    font-family: var(--font-sans);
+    line-height: 1.6;
+    overflow-x: clip;
+  }
+
+  h1, h2, h3 {
+    color: var(--color-claro);
+    font-family: var(--font-display);
+    line-height: 1.1;
+    text-wrap: balance;
+  }
+
+  :focus-visible {
+    outline: 3px solid var(--color-pulso);
+    outline-offset: 3px;
+  }
+}
+
+/* ─── COMPONENTES ───────────────────────────────────────────────── */
+@layer components {
+  .container-pagina {
+    width: 100%;
+    max-width: 76rem;
+    margin-inline: auto;
+    padding-inline: 1.25rem;
+  }
+
+  .titulo-secao {
+    font-size: clamp(1.75rem, 5vw, 3.5rem);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    min-height: 3.25rem;
+    padding: 0.7rem 1.75rem;
+    border: 1px solid transparent;
+    border-radius: 999px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform 200ms ease, box-shadow 200ms ease, background-color 200ms ease;
+  }
+  .btn:hover { transform: translateY(-2px); }
+
+  .btn-brasa {
+    background: var(--color-brasa);
+    color: var(--color-noite);
+  }
+  .btn-brasa:hover { box-shadow: 0 10px 40px -8px rgb(255 106 61 / 0.7); }
+
+  .btn-vidro {
+    border-color: rgb(255 255 255 / 0.25);
+    background: rgb(255 255 255 / 0.06);
+    color: var(--color-claro);
+    backdrop-filter: blur(12px);
+  }
+  .btn-vidro:hover { background: rgb(255 255 255 / 0.14); }
+
+  /* Cartão com luz que acompanha o ponteiro (variáveis --x e --y) */
+  .cartao {
+    position: relative;
+    overflow: hidden;
+    border: 1px solid var(--color-linha);
+    border-radius: 1.5rem;
+    background: var(--color-carvao);
+    transition: border-color 250ms ease;
+  }
+  .cartao::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: radial-gradient(
+      22rem circle at var(--x, 50%) var(--y, 50%),
+      rgb(142 162 255 / 0.16),
+      transparent 70%
+    );
+    opacity: 0;
+    transition: opacity 250ms ease;
+  }
+  .cartao:hover { border-color: #43435a; }
+  .cartao:hover::before { opacity: 1; }
+
+  .campo {
+    width: 100%;
+    min-height: 3.25rem;
+    padding: 0.7rem 1rem;
+    border: 1px solid var(--color-campo);
+    border-radius: 0.75rem;
+    background: var(--color-noite);
+    color: var(--color-claro);
+  }
+  .campo::placeholder { color: #8d8da0; }
+
+  .contorno-texto {
+    color: transparent;
+    -webkit-text-stroke: 2px var(--color-claro);
+  }
+
+  /* Controle deslizante da linha do tempo */
+  .deslizante {
+    width: 100%;
+    height: 2.5rem;
+    appearance: none;
+    background: transparent;
+    cursor: grab;
+  }
+  .deslizante::-webkit-slider-runnable-track {
+    height: 0.5rem;
+    border-radius: 999px;
+    background: linear-gradient(90deg, var(--color-brasa) var(--progresso), var(--color-linha) var(--progresso));
+  }
+  .deslizante::-moz-range-track {
+    height: 0.5rem;
+    border-radius: 999px;
+    background: linear-gradient(90deg, var(--color-brasa) var(--progresso), var(--color-linha) var(--progresso));
+  }
+  .deslizante::-webkit-slider-thumb {
+    appearance: none;
+    width: 1.75rem;
+    height: 1.75rem;
+    margin-top: -0.625rem;
+    border: 6px solid var(--color-claro);
+    border-radius: 50%;
+    background: var(--color-brasa);
+  }
+  .deslizante::-moz-range-thumb {
+    width: 1rem;
+    height: 1rem;
+    border: 6px solid var(--color-claro);
+    border-radius: 50%;
+    background: var(--color-brasa);
+  }
+
+  /* Surgimento ao rolar, só onde o navegador suporta */
+  @supports (animation-timeline: view()) {
+    @media (prefers-reduced-motion: no-preference) {
+      .surgir {
+        animation: surgir linear both;
+        animation-timeline: view();
+        animation-range: entry 0% entry 35%;
+      }
+    }
+  }
+}
+
+@keyframes surgir {
+  from { opacity: 0; translate: 0 3rem; }
+  to { opacity: 1; translate: 0 0; }
 }

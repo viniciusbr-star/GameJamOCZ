@@ -1,49 +1,51 @@
+import { useState } from "react";
 import { evento } from "../data/evento";
+import BotaoLembrete from "./BotaoLembrete";
+import Contagem from "./Contagem";
+import FundoShader from "./FundoShader";
 
 function Hero() {
+  const [pausado, setPausado] = useState(
+    () => window.matchMedia("(prefers-reduced-motion: reduce)").matches,
+  );
+
   return (
-    <section
-      id="inicio"
-      className="bg-primaria text-white py-28 px-4 text-center border-b border-gray-800"
-    >
-      <div className="max-w-3xl mx-auto flex flex-col items-center">
-        {/* Nome do Evento */}
-        <h1 className="text-4xl md:text-6xl font-black tracking-tight text-white uppercase">
-          {evento.nome}
+    <section id="inicio" className="relative isolate flex min-h-svh items-center overflow-hidden">
+      <div className="absolute inset-0 -z-10">
+        <FundoShader pausado={pausado} />
+      </div>
+
+      <div className="container-pagina pt-28 pb-20">
+        <p className="mb-4 font-semibold text-claro">
+          {evento.data} · {evento.cidade}
+        </p>
+
+        <h1 className="text-[clamp(2.75rem,min(11vw,13svh),8.5rem)] font-extrabold tracking-tighter">
+          <span className="block">GameJam</span>
+          <span className="contorno-texto block">OC 48h</span>
         </h1>
 
-        {/* Slogan Principal */}
-        <p className="mt-6 text-lg md:text-xl text-terciaria font-medium max-w-xl">
-          {evento.slogan}
-        </p>
+        <p className="mt-6 max-w-xl text-xl text-claro sm:text-2xl">{evento.slogan}</p>
 
-        {/* CORRIGIDO: Mantido text-gray-300 para contraste aprovado no Lighthouse */}
-        <p className="mt-2 text-sm md:text-base text-gray-300 max-w-lg leading-relaxed">
-          Prepare-se para superar desafios, conectar-se com desenvolvedores e
-          construir o futuro em poucas horas de pura programação.
-        </p>
-
-        {/* Informações de Data e Local com contraste ajustado para leitura (text-gray-200) */}
-        <div className="mt-8 flex flex-col sm:flex-row gap-4 text-sm font-semibold tracking-wide text-gray-200">
-          <span className="bg-gray-900 border border-gray-800 px-4 py-2 rounded-xl">
-            <span aria-hidden="true">📅</span> {evento.data}
-          </span>
-          <span className="bg-gray-900 border border-gray-800 px-4 py-2 rounded-xl">
-            <span aria-hidden="true">📍</span> {evento.local}
-          </span>
+        <div className="mt-8 flex flex-col items-start gap-3 sm:flex-row">
+          <a href="#inscricao" className="btn btn-brasa w-full sm:w-auto">
+            Garantir minha vaga <span aria-hidden="true">→</span>
+          </a>
+          <BotaoLembrete />
         </div>
 
-        {/* Botão de Chamada para Ação Original e Acessível */}
-        <div className="mt-12">
-          <a
-            href="#inscricao"
-            /* CORRIGIDO: Alterado min-height-[44px] para min-h-[44px] (sintaxe válida do Tailwind) */
-            className="inline-block bg-segundaria text-primaria font-black px-8 py-4 rounded-xl text-lg shadow-lg hover:scale-105 focus:scale-105 focus:outline-3 focus:outline-offset-2 focus:outline-segundaria transition-all min-height-[44px]"
-          >
-            Garantir Minha Vaga
-          </a>
+        <div className="mt-6">
+          <Contagem />
         </div>
       </div>
+
+      <button
+        type="button"
+        onClick={() => setPausado(!pausado)}
+        className="btn btn-vidro absolute right-4 bottom-4 !min-h-11 !px-4 text-sm"
+      >
+        {pausado ? "Animar fundo" : "Pausar fundo"}
+      </button>
     </section>
   );
 }
