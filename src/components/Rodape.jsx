@@ -32,10 +32,8 @@ function Rodape() {
 
       <p
         aria-hidden="true"
-        className="contorno-texto translate-y-[0.2em] text-center font-display text-[13vw] leading-none font-extrabold tracking-tighter whitespace-nowrap opacity-20 select-none"
-      >
-        GameJam OC
-      </p>
+        className="contorno-texto before:content-['GameJam_OC'] translate-y-[0.2em] text-center font-display text-[13vw] leading-none font-extrabold tracking-tighter whitespace-nowrap opacity-20 select-none"
+      />
     </footer>
   );
 }

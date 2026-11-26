@@ -90,6 +90,7 @@ function FundoShader({ pausado }) {
     let quadro = 0;
     let visivel = true;
     let anterior = 0;
+    let pronto = false;
 
     function desenhar() {
       gl.uniform2f(uTela, canvas.width, canvas.height);
@@ -99,18 +100,20 @@ function FundoShader({ pausado }) {
     }
 
     function animar(agora) {
+      quadro = requestAnimationFrame(animar);
+      // Limita a 30 quadros por segundo para aliviar o aparelho
+      if (anterior && agora - anterior < 32) return;
       if (anterior) tempoRef.current += Math.min(agora - anterior, 100) / 1000;
       anterior = agora;
       atual.x += (alvo.x - atual.x) * 0.05;
       atual.y += (alvo.y - atual.y) * 0.05;
       desenhar();
-      quadro = requestAnimationFrame(animar);
     }
 
     function atualizarLaco() {
       cancelAnimationFrame(quadro);
       anterior = 0;
-      if (visivel && !pausado) quadro = requestAnimationFrame(animar);
+      if (pronto && visivel && !pausado) quadro = requestAnimationFrame(animar);
     }
 
     const tamanho = new ResizeObserver(() => {
@@ -136,7 +139,13 @@ function FundoShader({ pausado }) {
     }
     window.addEventListener("pointermove", mover);
 
+    const espera = setTimeout(() => {
+      pronto = true;
+      atualizarLaco();
+    }, 1500);
+
     return () => {
+      clearTimeout(espera);
       cancelAnimationFrame(quadro);
       tamanho.disconnect();
       vista.disconnect();
